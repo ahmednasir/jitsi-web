@@ -1,6 +1,7 @@
 meeting = {
     domain: 'meet.jit.si',
     api: "",
+    unAuthusers :[],
     initPage: () => {
         try {
             let url = window.location.href
@@ -25,6 +26,7 @@ meeting = {
                 parentNode: document.querySelector('#meet'),
             };
             meeting.api = new JitsiMeetExternalAPI(meeting.domain, options);
+            $('.info-row').hide()
             meeting.api.getCurrentDevices().then(devices => {
                 console.log(devices)
             })
@@ -38,8 +40,15 @@ meeting = {
                 }).catch(err => {
                     console.log(err)
                     
+                    
                     if (err.Status == 401) {
-                        alert(`Unauthorised user: ${e.displayName} entered`)
+                        meeting.unAuthusers.push(e.displayName)
+                        let message = formatUnAuthMessage();
+                        // alert(`Unauthorised user: ${e.displayName} entered`)
+                        $("#unauth-user").text(message)
+                        $("#myModal").modal("show");
+                        // unauth-user
+                        
                         // meeting.api.executeCommand('sendEndpointTextMessage', err.TrainerId, `Unauthorised user: ${e.displayName}`);
                     }
                 })
@@ -93,6 +102,15 @@ meeting = {
         })
 
     },
+
+    formatUnAuthMessage = ()=>{
+        let message = "Usernames: "
+        meeting.unAuthusers.forEach(element => {
+            message += element + ", "
+        });
+        return message
+    },
+
     config: {
         BASE_URL: "http://localhost:3000",
         BOOKING_URL: "/bookings/validate/"

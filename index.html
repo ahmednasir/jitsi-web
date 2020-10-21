@@ -4,17 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ApnaShare</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .container-fluid {
+            padding: 0 !important;
+        }
 
+        .info-row {
+            text-align: center;
+        }
+    </style>
 </head>
-<div style="height: 100%;" id="meet"></div>
+<div class="container-fluid">
+    <div class="row info-row">
+        <h4>Please wait</h4>
+    </div>
+    <div class="row info-row">
+        <h4>Your training session is being initialised</h4>
+    </div>
+    <div style="height: 100%;" id="meet"></div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Unauthorised Access</h4>
+            </div>
+            <div class="modal-body">
+                <p id="unauth-user"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script src='https://meet.jit.si/external_api.js'></script>
     <script src="./js/main.js"></script>
     <script>
-        $(document).ready(()=>{
+        $(document).ready(() => {
             meeting.initPage()
         })
     </script>
